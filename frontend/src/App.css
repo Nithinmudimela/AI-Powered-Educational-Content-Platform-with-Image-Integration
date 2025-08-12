@@ -1,0 +1,184 @@
+/* Improved App.css - Professional and Colorful Styles */
+/* Color Palette: Primary - Deep Blue (#1E3A8A), Secondary - Vibrant Green (#10B981), Accent - Purple (#6D28D9) */
+/* Enhanced with gradients, shadows, and responsive design for a modern, engaging look. */
+
+:root {
+  --primary-color: #1E3A8A;
+  --secondary-color: #10B981;
+  --accent-color: #6D28D9;
+  --background-color: #F3F4F6;
+  --text-color: #1F2937;
+  --error-color: #EF4444;
+  --success-color: #22C55E;
+}
+
+.App {
+  text-align: center;
+  background: linear-gradient(135deg, var(--background-color), #E0E7FF);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-color);
+}
+
+.App-header {
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+}
+
+.menu-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.sidebar {
+  position: absolute;
+  top: 4rem;
+  right: 1rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  z-index: 10;
+}
+
+.system-status {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background: var(--background-color);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.welcome-section {
+  margin-bottom: 2rem;
+}
+
+.welcome-section h2 {
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.sparkle-icon {
+  color: var(--accent-color);
+  animation: sparkle 1.5s infinite;
+}
+
+.error-message {
+  background: var(--error-color);
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.App-footer {
+  background: var(--primary-color);
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.glass-effect:hover {
+  box-shadow: 0 12px 40px rgba(80, 0, 120, 0.18);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-pulse-soft {
+  animation: pulseSoft 2s infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulseSoft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes sparkle {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); opacity: 0.8; }
+  100% { transform: scale(1); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 90%;
+    right: 5%;
+  }
+  
+  .main-content {
+    padding: 1rem;
+  }
+}
