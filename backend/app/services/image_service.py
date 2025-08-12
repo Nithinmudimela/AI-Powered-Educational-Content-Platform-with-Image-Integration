@@ -16,7 +16,7 @@ class ImageService:
         self.token_expires_at = None
         
     def get_diagrams_for_topic(self, topic_name: str) -> List[Dict[str, Any]]:
-        """Get relevant diagrams for a topic"""
+        """Get relevant diagrams for a topic."""
         
         # First check cache
         cached_diagrams = self._get_cached_diagrams(topic_name)
@@ -25,6 +25,7 @@ class ImageService:
         
         # If not cached, fetch from APIs
         diagrams = []
+        
         
         # Try Shutterstock first (highest quality for educational content)
         try:
@@ -64,7 +65,7 @@ class ImageService:
         return diagrams[:3]  # Return top 3 most relevant
     
     def _get_cached_diagrams(self, topic_name: str) -> List[Dict[str, Any]]:
-        """Get cached diagrams that haven't expired"""
+        """Get cached diagrams that haven't expired."""
         
         topic = Topic.query.filter_by(name=topic_name).first()
         if not topic:
@@ -79,7 +80,7 @@ class ImageService:
         return [diagram.to_dict() for diagram in cached]
     
     def _get_shutterstock_access_token(self) -> str:
-        """Get or refresh Shutterstock access token"""
+        """Get or refresh Shutterstock access token."""
         
         # Check if current token is still valid
         if (self.access_token and self.token_expires_at and 
@@ -121,7 +122,7 @@ class ImageService:
             raise Exception(f"Failed to get Shutterstock access token: {str(e)}")
     
     def _search_shutterstock(self, topic: str) -> List[Dict[str, Any]]:
-        """Search Shutterstock for educational diagrams"""
+        """Search Shutterstock for educational diagrams."""
         
         # Get access token
         access_token = self._get_shutterstock_access_token()
@@ -178,7 +179,7 @@ class ImageService:
         return diagrams
     
     def _search_unsplash(self, topic: str) -> List[Dict[str, Any]]:
-        """Search Unsplash for educational images"""
+        """Search Unsplash for educational images."""
         
         headers = {
             'Authorization': f'Client-ID {self.unsplash_access_key}'
@@ -227,7 +228,7 @@ class ImageService:
         return diagrams
     
     def _search_pixabay(self, topic: str) -> List[Dict[str, Any]]:
-        """Search Pixabay for educational images"""
+        """Search Pixabay for educational images."""
         
         search_terms = self._generate_search_terms(topic)
         diagrams = []
@@ -274,7 +275,7 @@ class ImageService:
         return diagrams
     
     def _search_wikimedia(self, topic: str) -> List[Dict[str, Any]]:
-        """Search Wikimedia Commons for educational content"""
+        """Search Wikimedia Commons for educational content."""
         
         search_terms = self._generate_search_terms(topic)
         diagrams = []
@@ -300,7 +301,6 @@ class ImageService:
                 data = response.json()
                 
                 for item in data.get('query', {}).get('search', []):
-                    # Construct image URL from title
                     filename = item['title'].replace('File:', '')
                     image_url = f"https://commons.wikimedia.org/wiki/Special:FilePath/{filename}"
                     
@@ -325,7 +325,7 @@ class ImageService:
         return diagrams
     
     def _generate_search_terms(self, topic: str) -> List[str]:
-        """Generate relevant search terms for a topic"""
+        """Generate relevant search terms for a topic."""
         
         # Topic-specific keyword mapping
         keyword_map = {
@@ -362,7 +362,7 @@ class ImageService:
         return search_terms[:5]  # Return top 5 search terms
     
     def _cache_diagrams(self, topic_name: str, diagrams: List[Dict[str, Any]]):
-        """Cache diagrams in the database"""
+        """Cache diagrams in the database."""
         
         # Get or create topic
         topic = Topic.query.filter_by(name=topic_name).first()
@@ -382,7 +382,7 @@ class ImageService:
                 thumbnail_url=diagram_data.get('thumbnail_url'),
                 caption=diagram_data.get('caption'),
                 alt_text=diagram_data.get('alt_text'),
-                diagram_metadata=json.dumps(diagram_data.get('metadata', {})),  # Note: using diagram_metadata
+                diagram_metadata=json.dumps(diagram_data.get('metadata', {})),
                 expires_at=expires_at
             )
             db.session.add(cached_diagram)
@@ -394,7 +394,7 @@ class ImageService:
             print(f"Failed to cache diagrams: {e}")
     
     def get_available_sources(self) -> Dict[str, bool]:
-        """Get status of available image sources"""
+        """Get status of available image sources."""
         return {
             'shutterstock': bool(self.shutterstock_consumer_key and self.shutterstock_consumer_secret),
             'unsplash': bool(self.unsplash_access_key),

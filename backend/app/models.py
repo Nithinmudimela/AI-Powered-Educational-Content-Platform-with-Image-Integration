@@ -1,8 +1,7 @@
-from flask_sqlalchemy import SQLAlchemy
+
+from app import db
 from datetime import datetime
 import json
-
-db = SQLAlchemy()
 
 class Topic(db.Model):
     __tablename__ = 'topics'
@@ -33,7 +32,7 @@ class CachedDiagram(db.Model):
     thumbnail_url = db.Column(db.String(500))
     caption = db.Column(db.Text)
     alt_text = db.Column(db.Text)
-    diagram_metadata = db.Column(db.Text)  # Changed from 'metadata' to 'diagram_metadata'
+    diagram_metadata = db.Column(db.Text)  # JSON string
     cached_at = db.Column(db.DateTime, default=datetime.utcnow)
     expires_at = db.Column(db.DateTime, nullable=False)
     
